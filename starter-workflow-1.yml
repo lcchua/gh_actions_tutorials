@@ -1,0 +1,23 @@
+name: Hello World Workflow (Push)
+
+# Trigger the workflow on push to the main branch
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  hello-world:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print Hello, World!
+        run: echo "Hello, World!"
+
+      - name: Print Your Name
+        run: echo "Hello, Luqman!" # Replace with your name
+
+      - name: Print Multiple Lines
+        run: |
+          echo "Exiting..."
+          echo "Ending session..."
