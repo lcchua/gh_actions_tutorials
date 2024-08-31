@@ -1,0 +1,21 @@
+name: Hello World Workflow (Dispatch)
+
+# Trigger the workflow via github console
+on:
+  workflow_dispatch:
+
+jobs:
+  hello-world:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print Hello, World!
+        run: echo "Hello, World!"
+
+      - name: Print Your Name
+        run: echo "Hello, Lcchua!" # Replace with your name
+
+      - name: Print Multiple Lines
+        run: |
+          echo "Exiting..."
+          echo "Ending session..."
