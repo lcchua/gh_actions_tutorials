@@ -1,0 +1,25 @@
+name: Hello World Workflow (Dispatch with Inputs)
+
+# Trigger the workflow via github console and using variables inputs
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Enter your name'
+        required: true
+
+jobs:
+  hello-world:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print Hello, World!
+        run: echo "Hello, World!"
+
+      - name: Print Your Name
+        run: echo "Hello, ${{ github.event.inputs.name }}!" # Replace with your name
+
+      - name: Print Multiple Lines
+        run: |
+          echo "Exiting..."
+          echo "Ending session..."
