@@ -15,7 +15,7 @@ jobs:
         run: echo "Hello, World!"
 
       - name: Print Your Name
-        run: echo "Hello, Luqman!" # Replace with your name
+        run: echo "Hello, Lcchua!" # Replace with your name
 
       - name: Print Multiple Lines
         run: |
