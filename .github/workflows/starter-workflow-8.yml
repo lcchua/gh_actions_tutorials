@@ -1,0 +1,56 @@
+name: Hello World Workflow (Chained Workflow using Outputs)
+
+# Trigger the workflow via github console and using variables inputs
+on:
+  push:
+    branches:
+      - main
+      - feature/**
+
+jobs:
+  hello-world-dev:
+    runs-on: ubuntu-latest
+    environment: dev # This corresponds to the DEV defined variables in Github Actions > Settings
+    outputs:
+      env_output: ${{ steps.env_step.outputs.env_dev }}
+      sens_output: ${{ steps.sens_step.outputs.sens_level }}
+    steps:
+      - name: Print Hello, World!
+        run: echo "Hello, World!"
+
+      - name: Environment Name
+        run: echo "You are running in ${{ vars.ENV_NAME }}!"
+
+      - name: Storing Outputs From Env Variables
+        id: env_step
+        run: echo "env_dev=DEV_ENV" >> "$GITHUB_OUTPUT"
+
+      - name: Sensitivity Level
+        run: |
+          echo "Your environment has ${{ vars.SENSITIVITY_LEVEL }} level"
+    
+      - name: Storing Outputs From Sensitivity Level Variables
+        id: sens_step
+        run: echo "sens_level=LOW_LEVEL" >> "$GITHUB_OUTPUT"
+
+  hello-world-uat:
+    needs: hello-world-dev
+    runs-on: ubuntu-latest
+    environment: uat # This corresponds to the UAT defined variables in Github Actions > Settings
+
+    steps:
+      - name: Print Hello, World!
+        run: echo "Hello, World!"
+
+      - name: Environment Name From ENV Variables
+        run: echo "You are running in ${{ vars.ENV_NAME }}!"
+
+      - name: Environment Name From Previous Step
+        run: echo "From previous job, Environment Name = ${{ needs.hello-world-dev.outputs.env_output }}"
+
+      - name: Sensitivity Level
+        run: |
+          echo "Your environment has ${{ vars.SENSITIVITY_LEVEL }} level"
+
+      - name: Sensitivity Level From Previous Step
+        run: echo "From previous job, Sensitivity Level = ${{ needs.hello-world-dev.outputs.sens_output }}"
